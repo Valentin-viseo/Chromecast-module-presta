@@ -46,7 +46,7 @@ app/config/config.php
 
 # Themes, modules and overrides
 
-modules/*
+#modules/*
 override/*
 /themes/StarterTheme
 
