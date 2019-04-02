@@ -1,3 +1,6 @@
+console.log("soksok")
+
+
 window['__onGCastApiAvailable'] = function (isAvailable) {
   if (isAvailable) {
     initializeCastApi ();
@@ -34,10 +37,10 @@ remotePlayerController.addEventListener (
   () => {
     if (remotePlayer.isPaused) {
       remotePlayerController.playOrPause ();
-      document.getElementById ('playpause').innerHTML = 'Play';
+      // document.getElementById ('playpause').innerHTML = 'Play';
     } else {
       remotePlayerController.playOrPause ();
-      document.getElementById ('playpause').innerHTML = 'Pause';
+      // document.getElementById ('playpause').innerHTML = 'Pause';
     }
   }
 );
@@ -47,10 +50,10 @@ remotePlayerController.addEventListener (
   () => {
     if (remotePlayer.isMuted) {
       remotePlayerController.muteOrUnmute ();
-      document.getElementById ('muteunmute').innerHTML = 'Unmute';
+      // document.getElementById ('muteunmute').innerHTML = 'Unmute';
     } else {
       remotePlayerController.muteOrUnmute ();
-      document.getElementById ('muteunmute').innerHTML = 'Mute';
+      // document.getElementById ('muteunmute').innerHTML = 'Mute';
     }
   }
 );

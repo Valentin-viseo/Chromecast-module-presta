@@ -90,7 +90,9 @@ class Chromecast extends Module
 
 
     public function hookDisplayHeader() {
-        $this->context->controller->addCSS($this->_path.'css/main.css', 'all');
+        // die($this->_path.'css/main.css');
+        $this->context->controller->addCSS($this->_path.'views/css/main.css', 'all');
+        $this->context->controller->addJS($this->_path.'views/js/ChromeCastService/ChromeCastSender.js', 'all');
     }
 
     public function hookDisplayProductAdditionalInfo() {

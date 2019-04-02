@@ -9,9 +9,8 @@
            {/if}
            !
     </p>
-    {debug}
     <ul>
-      <li><a href="{$my_module_link}" title="Click this link">Click me!</a></li>
+      <li><a onclick="" title="Click this link">Click me!</a></li>
     </ul>
   </div>
 </div>
