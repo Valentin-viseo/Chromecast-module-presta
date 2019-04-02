@@ -1,0 +1,5 @@
+/* Add style to our hooks or pages */
+div#mymodule_block_home p {
+    font-size: 150%;
+    font-style:italic;
+}

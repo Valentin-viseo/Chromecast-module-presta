@@ -1,0 +1,1 @@
+Essential folder for modification of the module in case of the use of a theme.

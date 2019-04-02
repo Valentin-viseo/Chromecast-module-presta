@@ -1,0 +1,3 @@
+## 
+## 
+## In services.yml file, you can register your own classes as a Symfony service and alter the ones provided by PrestaShop.

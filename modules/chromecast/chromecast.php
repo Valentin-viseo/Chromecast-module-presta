@@ -7,30 +7,6 @@ if (!defined('_PS_VERSION_')) {
 
 class Chromecast extends Module
 {
-    //     //     /// Module name
-    //     //     $this->name = "ChromeCast";
-    //     //     /// Module version
-    //     //     $this->version = "1.0";
-    //     //     /// In case we include bootstrap css page
-    //     //     // $this->bootstrap = true;
-    //     //     ///in case we want to upload our module on the store
-    //     //     /// $this->secure_key = Tools::encrypt($this->name)
-
-    //     //     /// The language of our module (french / english /...)
-    //     //     /// $this->language = Language::getLanguages()
-
-    //     //     /// The authors of the module
-    //     //     $this->author = "Viseo";
-    //     //     parent::__construct();
-
-    //     //     ///The name displayed on the store
-    //     //     $this->displayName = $this->l("Chromecast Module");
-    //     //     ///Description of the module
-    //     //     $this->description = $this->l("Display product on a tv connected with Chromecast"); 
-    //     //     /// Version of prestashop compatible with our module
-    //     //     $this->ps_versions_compliancy = array('min' => '1.7.1.0', 'max' => _PS_VERSION_);
-    //     //     /// Theme configuration
-    //     //     // $this->module_path = _PS_MODULE_DIR_.
     public function __construct()
     {
         /// Module name
@@ -74,8 +50,8 @@ class Chromecast extends Module
             !parent::install() ||
             !$this->registerHook('leftColumn') ||
             !$this->registerHook('header') ||
-            !$this->registerHook('displayProductButtons') ||
-            !Configuration::updateValue('MYMODULE_NAME', 'my friend')
+            !$this->registerHook('displayProductAdditionalInfo') ||
+            !Configuration::updateValue('CHROMECAST', 'my friend')
         ) {
             return false;
         }
@@ -87,7 +63,7 @@ class Chromecast extends Module
     {
         if (
             !parent::uninstall() ||
-            !Configuration::deleteByName('MYMODULE_NAME')
+            !Configuration::deleteByName('CHROMECAST')
         ) {
             return false;
         }
@@ -95,18 +71,34 @@ class Chromecast extends Module
         return true;
     }
 
+    public function getContent() {
+        if (Tools::getValue("chromecast_txt")) {
+            $status = false;
+            $message = Tools::getValue("chromecast_txt");
+
+            // Store in db
+            if (ConfigurationCore::updateValue("PS_CHROMECAST", $message)) {
+                $status = true;
+            }
+            $this->context->smarty->assign([
+                'submit_form' => true,
+                'status' => $status
+            ]);
+        }
+        return $this->display(__FILE__, "views/admin/admin.tpl");
+    }
+
 
     public function hookDisplayHeader() {
-        $this->context->smarty->assign([
-            'Message' => "This is a message",
-            'Description' => "Shalala",
-        ]);
-        return $this->display(__FILE__, "views/header.tpl");
+        $this->context->controller->addCSS($this->_path.'css/main.css', 'all');
     }
 
     public function hookDisplayProductAdditionalInfo() {
-        $this->context->smarty->assign("ok", "sisi");
-        return $this->display(__FILE__, "views/button_product.tpl");
+        $this->context->smarty->assign([
+            'my_module_name' => Configuration::get('CHROMECAST'),
+            'my_module_link' => $this->context->link->getModuleLink('chromecast', 'display')
+          ]);    
+        return $this->display(__FILE__, "button_product.tpl");
     }
-
 }
+
