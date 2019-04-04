@@ -1,20 +1,26 @@
 {if isset($html) && $html}
-    <div id="log" onclick="number10({$html})">
-      {* {$html} *}
+    <div id="log">
     </div>
-    <a onClick="number10('slt')">
+      {* {$html} *}
+    {* </div>  *}
+    {* <a onClick="numberone({$html})">
     no women no cry
-    </a> 
+    </a>  *}
+    <a onClick="coucou()"> coucou </a>
+    <input type="hidden" id="variableAPasser" value="{$html}"/>
+    <input type="hidden" id="jsAPasser" value="{$js}" />
 {else}
     World
 {/if}
 
 <script>
-    const number10 = (variablemoi) => {
+    const numberone = (variablemoi) => {
         console.log(variablemoi)
-    }
-    const tmp = document.getElementById("log");
-    //tmp.innerHTML = "{$html}";
-    console.log(tmp)
+    };
+    var variableRecuperee = document.getElementById("variableAPasser").value;
+    document.getElementById("log").innerHTML = variableRecuperee
+    var jsARecuperer = document.getElementById("jsAPasser").value;
+    const myScript = document.createElement('script');;
+
+    document.body.appendChild(myScript);
 </script>
-<a onclick="nulnulnul()">nulll </a>

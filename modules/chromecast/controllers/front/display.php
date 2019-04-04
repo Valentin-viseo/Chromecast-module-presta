@@ -5,9 +5,11 @@ class chromecastdisplayModuleFrontController extends ModuleFrontController
     public function initContent()
     {
         parent::initContent();
-        $this->val = $this->CallApi("get", "http://127.0.0.1:8000/home");
+        $this->html = $this->CallApi("get", "http://127.0.0.1:8000/home");
+        $this->javascript = $this->CallAPI("get", "http://127.0.0.1:8000/js");
         $this->context->smarty->assign([
-            "html" => $this->val
+            "html" => $this->html,
+            "js" => $this->javascript
         ]);
         $this->setTemplate('module:chromecast/views/templates/front/display.tpl');
         // dump($this->val);
