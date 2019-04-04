@@ -1,52 +1,35 @@
 {if isset($html) && $html}
     <div id="log">
     </div>
-      {* {$html} *}
-    {* </div>  *}
-    {* <a onClick="numberone({$html})">
-    no women no cry
-    </a>  *}
-    <a onClick="coucou()"> coucou </a>
-    <input type="hidden" id="variableAPasser" value="{$html}"/>
-    <input type="hidden" id="jsAPasser" value="{$js}" />
-    <input type="hidden" id="liensAPasser" value="{$liens}" />
 {else}
     World
 {/if}
 
-<script>
-    const numberone = (variablemoi) => {
-        console.log(variablemoi)
-    };
-    var variableRecuperee = document.getElementById("variableAPasser").value;
-    var jsARecuperer = document.getElementById("jsAPasser").value;
-    const liensARecuperer = document.getElementById("liensAPasser").value;
+<script type="text/javascript" literal>
+    /// Function to decode html element to javascript '&lt' ==> '<'
+    function htmlDecode(input){
+    var e = document.createElement('div');
+    e.innerHTML = input;
+    return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
 
-    document.getElementById("log").innerHTML = variableRecuperee
+    /// Display the html
+    const value = document.getElementById("log");
+    value.innerHTML = htmlDecode(`{$html}`)
 
-    const myScript = document.createElement('script');
-    myScript.text = "{literal}" + jsARecuperer + "{/literal}";
-    
-    let multiScript = JSON.parse(liensARecuperer);
-    console.log(multiScript);
-    let scripMax = [];
-    multiScript.forEach((x) => {
-        const someScript = document.createElement('script');
-        someScript.src = x.src;
-        someScript.crossorigin = x.crossorigin; 
-        someScript.integrity? someScript.integrity = x.integrity: {};
-        scripMax.push(someScript);
+    /// Import script important for chromecast and jquery
+    const importantScriptImportList = []
+    JSON.parse(htmlDecode(`{$liens}`)).forEach((lien) => {
+        const newScript = document.createElement("script");
+        newScript.src = lien.src;
+        newScript.crossorigin = lien.crossorigin;
+       // lien.integrity? newScript.integrity = lien.integrity: {};
+        document.body.appendChild(newScript)
     })
 
-    scripMax.forEach(async (x) => {
-        console.log(x)
-        setTimeout(() => {
+    /// Important javascript part for the chromecast
+    const scriptJS = document.createElement("script");
+    scriptJS.text =  htmlDecode(`{$js}`)
+    document.body.appendChild(scriptJS);
 
-        }, 2000)
-        document.body.appendChild(x);
-    })
-
-
-
-    document.body.appendChild(myScript);
 </script>
