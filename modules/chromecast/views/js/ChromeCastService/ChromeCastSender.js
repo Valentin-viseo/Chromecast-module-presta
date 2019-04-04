@@ -1,69 +1,64 @@
-console.log("soksok")
+class ChromeCastSender {
+  constructor() {
+    
+  }
+  
+  initializeCastApi = () => {
+    cast.framework.CastContext.getInstance ().setOptions ({
+      receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
+      autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED,
+    });
+    /// Initialize button to connect to chromeCast
+    // const valuue = document.createElement("google-cast-launcher");
+    // const noWomanNoCry = document.getElementById("noWomanNoCry")
+    // noWomanNoCry.appendChild(valuue)
+    console.log(cast)
+  };
 
+  noMoreCry = () => {
+    console.log(cast.framework.CastContext.getInstance().getCurrentSession())
+  }
+  
+  disconnectFromChromeCast = () => {
+    cast.framework.CastContext.getInstance().getCurrentSession().endSession(true)
+  }
+  
+  launchVideo = () => {
+    var castSession = cast.framework.CastContext.getInstance().getCurrentSession();
+    const mediaInfo = new chrome.cast.media.MediaInfo(JUL, "image/gif");
+    const request = new chrome.cast.media.LoadRequest(mediaInfo);
+    castSession.loadMedia(request).then(
+      () => {
+        console.log("link ok")
+      },
+      (errorCode) => {
+        console.log("Error code" + errorCode);
+      })
+  }
+
+}
+
+const chromeCastSender = new ChromeCastSender();
 
 window['__onGCastApiAvailable'] = function (isAvailable) {
   if (isAvailable) {
-    initializeCastApi ();
+    chromeCastSender.initializeCastApi();
   }
 };
 
-const initializeCastApi = () => {
-  cast.framework.CastContext.getInstance ().setOptions ({
-    receiverApplicationId: applicationId,
-    autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED,
-  });
-};
+const nulnulnul = () => {
+  console.log(nulnulnul)
+}
 
-sessionRequest = chrome.cast.SessionRequest (
-  applicationId,
-  chrome.cast.Capability.VIDEO_OUT,
-  1000
-);
-console.log (cast.framwork.CastContext.getInstance ());
-const castSession = cast.framework.CastContext
-  .getInstance ()
-  .getCurrentSession ();
-const castState = cast.framework.CastContext.getInstance ().getSessionState ();
+var MEDIA_SOURCE_ROOT =
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/';
 
-const remotePlayer = new cast.framework.RemotePlayer ();
-remotePlayer.canControlVolume = true;
-remotePlayer.canPause = true;
-remotePlayer.canSeek = true;
-const remotePlayerController = new cast.framework.remotePlayerController (
-  remotePlayer
-);
-remotePlayerController.addEventListener (
-  remotePlayer.RemotePlayerEventType.IS_PAUSED_CHANGED,
-  () => {
-    if (remotePlayer.isPaused) {
-      remotePlayerController.playOrPause ();
-      // document.getElementById ('playpause').innerHTML = 'Play';
-    } else {
-      remotePlayerController.playOrPause ();
-      // document.getElementById ('playpause').innerHTML = 'Pause';
-    }
-  }
-);
+const JUL =  "https://media1.tenor.com/images/ed1a440293def059dd5e8be33b7931b7/tenor.gif?itemid=12205924";
 
-remotePlayerController.addEventListener (
-  remotePlayer.RemotePlayerEventType.IS_MUTED_CHANGED,
-  () => {
-    if (remotePlayer.isMuted) {
-      remotePlayerController.muteOrUnmute ();
-      // document.getElementById ('muteunmute').innerHTML = 'Unmute';
-    } else {
-      remotePlayerController.muteOrUnmute ();
-      // document.getElementById ('muteunmute').innerHTML = 'Mute';
-    }
-  }
-);
+var mediaURLs = [
+  'http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4',
+  'http://commondatastorage.googleapis.com/gtv-videos-bucket/ED_1280.mp4',
+  'http://commondatastorage.googleapis.com/gtv-videos-bucket/tears_of_steel_1080p.mov',
+  'http://commondatastorage.googleapis.com/gtv-videos-bucket/reel_2012_1280x720.mp4',
+  'http://commondatastorage.googleapis.com/gtv-videos-bucket/Google%20IO%202011%2045%20Min%20Walk%20Out.mp3'];
 
-let mediaInfo = new chrome.cast.media.MediaInfo (currentMediaURL, contentType);
-let request = new chrome.cast.LoadRequest (mediaInfo);
-
-const stopCasting = () => {
-  let castSession = cast.framework.CastContext
-    .getInstance ()
-    .getCurrentSession ();
-  castSession.endSession (true);
-};

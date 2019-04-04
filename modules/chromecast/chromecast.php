@@ -93,6 +93,13 @@ class Chromecast extends Module
         // die($this->_path.'css/main.css');
         $this->context->controller->addCSS($this->_path.'views/css/main.css', 'all');
         $this->context->controller->addJS($this->_path.'views/js/ChromeCastService/ChromeCastSender.js', 'all');
+        // $this->context->controller->addJS('www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1', 'all');
+        $this->context->controller->registerJavascript(
+            'monurl', // Unique ID
+            'http://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1', // JS path
+            array('server' => 'remote', 'position' => 'bottom', 'priority' => 150) // Arguments
+        );
+
     }
 
     public function hookDisplayProductAdditionalInfo() {

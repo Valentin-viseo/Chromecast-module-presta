@@ -9,8 +9,11 @@
            {/if}
            !
     </p>
-    <ul>
-      <li><a onclick="" title="Click this link">Click me!</a></li>
-    </ul>
+    {debug}
+    <a onClick="chromeCastSender.launchVideo()" title="Click this link">Click me!</a>
+    <a href="{$my_module_link}">Redirection </a>
+    <div id="noWomanNoCry">
+      <google-cast-launcher> </google-cast-launcher>
+    </div>
   </div>
 </div>
