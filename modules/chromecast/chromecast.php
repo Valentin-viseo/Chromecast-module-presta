@@ -51,6 +51,7 @@ class Chromecast extends Module
             !$this->registerHook('leftColumn') ||
             !$this->registerHook('header') ||
             !$this->registerHook('displayProductAdditionalInfo') ||
+            !$this->registerHook('DisplayFooterProduct') ||
             !Configuration::updateValue('CHROMECAST', 'my friend')
         ) {
             return false;
@@ -102,12 +103,20 @@ class Chromecast extends Module
 
     }
 
-    public function hookDisplayProductAdditionalInfo() {
+    public function hookDisplayFooterProduct() {
         $this->context->smarty->assign([
             'my_module_name' => Configuration::get('CHROMECAST'),
             'my_module_link' => $this->context->link->getModuleLink('chromecast', 'display')
           ]);    
         return $this->display(__FILE__, "button_product.tpl");
     }
+
+    // public function hookDisplayProductAdditionalInfo() {
+    //     $this->context->smarty->assign([
+    //         'my_module_name' => Configuration::get('CHROMECAST'),
+    //         'my_module_link' => $this->context->link->getModuleLink('chromecast', 'display')
+    //       ]);    
+    //     return $this->display(__FILE__, "button_product.tpl");
+    // }
 }
 

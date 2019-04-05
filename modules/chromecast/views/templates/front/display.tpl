@@ -30,6 +30,7 @@
     /// Important javascript part for the chromecast
     const scriptJS = document.createElement("script");
     scriptJS.text =  htmlDecode(`{$js}`)
+    console.log(htmlDecode(`{$js}`))
     document.body.appendChild(scriptJS);
 
 </script>

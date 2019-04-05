@@ -1,4 +1,22 @@
 /* Add style to our hooks or pages */
+div#mymodule_block_home  {
+    position: fixed;
+    left: 0;
+    right: 0;
+    box-shadow:  inset 0px 1px 5px 0px #656565;
+    width: 100%;
+    overflow: hidden;
+    bottom: 0;
+    background: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+div#mymodule_block_home div {
+    margin: auto;
+}
+
 div#mymodule_block_home p {
     font-size: 150%;
     font-style:italic;
