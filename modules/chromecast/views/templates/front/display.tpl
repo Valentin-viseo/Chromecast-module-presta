@@ -8,6 +8,7 @@
 {/if}
 
 <script type="text/javascript" literal>
+    var checkVideo = true;
     /// Function to decode html element to javascript '&lt' ==> '<'
     function htmlDecode(input){
     var e = document.createElement('div');
@@ -36,5 +37,5 @@
     document.body.appendChild(scriptJS);
 
 </script>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 {/block}

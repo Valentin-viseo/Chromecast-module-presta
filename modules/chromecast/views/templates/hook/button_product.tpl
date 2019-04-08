@@ -1,4 +1,4 @@
-<div id="mymodule_block_home" class="block">
+{* <div id="mymodule_block_home" class="block">
   <div class="onglets">
     <div class="onglet">
       <h2> Video </h2>
@@ -18,4 +18,11 @@
       <google-cast-launcher> </google-cast-launcher>
     </div>
   </div>
+</div> *}
+<div id="root">
+  <salut> </salut>
 </div>
+
+<script type="text/javascript" src="http://127.0.0.1:8000/coucou" >
+
+</script>
