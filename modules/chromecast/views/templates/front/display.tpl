@@ -1,3 +1,5 @@
+{extends file="page.tpl"}
+{block name="content"}
 {if isset($html) && $html}
     <div id="log">
     </div>
@@ -15,6 +17,7 @@
 
     /// Display the html
     const value = document.getElementById("log");
+    console.log(value)
     value.innerHTML = htmlDecode(`{$html}`)
 
     /// Import script important for chromecast and jquery
@@ -30,7 +33,8 @@
     /// Important javascript part for the chromecast
     const scriptJS = document.createElement("script");
     scriptJS.text =  htmlDecode(`{$js}`)
-    console.log(htmlDecode(`{$js}`))
     document.body.appendChild(scriptJS);
 
 </script>
+
+{/block}

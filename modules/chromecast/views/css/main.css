@@ -1,6 +1,6 @@
 /* Add style to our hooks or pages */
 div#mymodule_block_home  {
-    position: fixed;
+    position: sticky;
     left: 0;
     right: 0;
     box-shadow:  inset 0px 1px 5px 0px #656565;
@@ -11,6 +11,14 @@ div#mymodule_block_home  {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+}
+
+div#mymodule_block_home .onglets {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    flex-grow: 1;
 }
 
 div#mymodule_block_home div {
@@ -25,4 +33,10 @@ div#mymodule_block_home p {
 #noWomanNoCry {
     width: 50px;
     height: 50px;
+}
+
+.onglet {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }

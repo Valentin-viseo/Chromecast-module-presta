@@ -5,6 +5,9 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+
+include_once _PS_MODULE_DIR_ . 'chromecast/classes/HelperClass.php';
+
 class Chromecast extends Module
 {
     public function __construct()
@@ -91,6 +94,7 @@ class Chromecast extends Module
 
 
     public function hookDisplayHeader() {
+        $nope = new HelperClass();
         // die($this->_path.'css/main.css');
         $this->context->controller->addCSS($this->_path.'views/css/main.css', 'all');
         $this->context->controller->addJS($this->_path.'views/js/ChromeCastService/ChromeCastSender.js', 'all');
@@ -109,6 +113,10 @@ class Chromecast extends Module
             'my_module_link' => $this->context->link->getModuleLink('chromecast', 'display')
           ]);    
         return $this->display(__FILE__, "button_product.tpl");
+    }
+
+    public function hooDisplayLeftColumn($param) {
+        die($param);
     }
 
     // public function hookDisplayProductAdditionalInfo() {
