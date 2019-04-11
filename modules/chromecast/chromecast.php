@@ -108,10 +108,14 @@ class Chromecast extends Module
     }
 
     public function hookDisplayFooterProduct() {
+        $id_product = Tools::getValue('id_product');
+        // $this->context->smarty->getContent("product");
         $this->context->smarty->assign([
+            'product_id'    => $id_product,
             'my_module_name' => Configuration::get('CHROMECAST'),
             'my_module_link' => $this->context->link->getModuleLink('chromecast', 'display')
-          ]);    
+          ]);
+        // die($id_product); 
         return $this->display(__FILE__, "button_product.tpl");
     }
 
