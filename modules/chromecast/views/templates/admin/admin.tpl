@@ -1,20 +1,32 @@
-{if isset($submit_form) && $submit_form}
-<p>
-    The form is submitted
-</p>
-{/if}
-
-<p>
-    {if isset($status) && $status == 'true'}
-    All is good
-        {else}
-        Something wron happended!
-    {/if}
-</p>
-
 <form method="post">
-    <input type="text" name="chromecast_txt">
-    <p>
-    </p>
-    <input type="submit" value="Submit changes">
+    <label for="urlfortoken">
+        Enter the url of your e-commerce website.
+    </label>
+    <input id="urlfortoken" disabled/>
+    <button onclick="GetToken(document.getElementById('urlfortoken').value)">
+        Generate
+    </button>
+    <br />
+    <input type="submit" value="Submit changes" disabled>
 </form>
+
+<script>
+    let loading = false;
+    const GetToken = (value) => {
+        console.log(value)
+        const myObj = {
+            _url: "abdenourrrrr"
+        };
+        fetch("http://localhost:8000/register", {
+            method: 'POST',
+           
+            body: JSON.stringify(myObj)
+        })
+        .then((response) => {
+            return response.text()
+        })
+        .then((data) => {
+            console.log(data)
+        })
+    } 
+</script>
