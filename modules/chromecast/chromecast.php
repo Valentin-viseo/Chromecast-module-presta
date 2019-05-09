@@ -76,40 +76,42 @@ class Chromecast extends Module
     }
 
     public function getContent() {
-        if (Tools::getValue("chromecast_txt")) {
-            $status = false;
-            $message = Tools::getValue("chromecast_txt");
+        ConfigurationCore::deleteByName("PS_CHROMECAST");
 
-            // Store in db
-            if (ConfigurationCore::updateValue("PS_CHROMECAST", $message)) {
-                $status = true;
+        $status = false;
+        if (ConfigurationCore::get("PS_CHROMECAST")) {
+            $status = true;
+        } else {
+            if (Tools::isSubmit("buttonsubmit")) {
+                $status = false;
+                $message = Tools::getValue("urlfortoken");
+                // Store in db
+                if (ConfigurationCore::updateValue("PS_CHROMECAST", $message)) {
+                    $status = true;
+                }
             }
-            $this->context->smarty->assign([
-                'submit_form' => true,
-                'status' => $status
-            ]);
         }
+        $this->context->smarty->assign([
+            'status' => $status
+        ]);
         return $this->display(__FILE__, "views/templates/admin/admin.tpl");
     }
 
 
     public function hookDisplayHeader() {
         $nope = new HelperClass();
-        // die($this->_path.'css/main.css');
         $this->context->controller->addCSS($this->_path.'views/css/main.css', 'all');
         $this->context->controller->addJS($this->_path.'views/js/ChromeCastService/ChromeCastSender.js', 'all');
-        // $this->context->controller->addJS('www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1', 'all');
-
-
     }
 
     public function hookDisplayFooterProduct() {
         $id_product = Tools::getValue('id_product');
-        // $this->context->smarty->getContent("product");
+        $TOKEN = ConfigurationCore::get("PS_CHROMECAST");
         $this->context->smarty->assign([
             'product_id'    => $id_product,
             'my_module_name' => Configuration::get('CHROMECAST'),
-            'my_module_link' => $this->context->link->getModuleLink('chromecast', 'display')
+            'my_module_link' => $this->context->link->getModuleLink('chromecast', 'display'),
+            'token' => $TOKEN,
           ]);
         // die($id_product); 
         return $this->display(__FILE__, "button_product.tpl");

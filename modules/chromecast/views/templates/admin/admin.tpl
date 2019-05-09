@@ -1,32 +1,37 @@
-<form method="post">
+ {if isset($status) && $status}
+<p>
+    The form is submitted
+</p>
+{else}
     <label for="urlfortoken">
-        Enter the url of your e-commerce website.
+        Generate a token for your website and submit changes
     </label>
-    <input id="urlfortoken" disabled/>
-    <button onclick="GetToken(document.getElementById('urlfortoken').value)">
+    <button onclick="GetToken()">
         Generate
     </button>
+<form method="post">
+
+    <input id="urlfortoken" type="text" name="urlfortoken"/>
     <br />
-    <input type="submit" value="Submit changes" disabled>
+    <input type="submit" name="buttonsubmit" id="submitButton" value="Submit changes" disabled>
 </form>
 
 <script>
     let loading = false;
     const GetToken = (value) => {
-        console.log(value)
-        const myObj = {
-            _url: "abdenourrrrr"
-        };
+        const inputforurl = document.getElementById("urlfortoken");
         fetch("http://localhost:8000/register", {
-            method: 'POST',
-           
-            body: JSON.stringify(myObj)
+            method: 'POST'
         })
         .then((response) => {
-            return response.text()
+            return response.text();
         })
         .then((data) => {
-            console.log(data)
+            console.log(data);
+            inputforurl.value = data;
+            const submitButton = document.getElementById("submitButton");
+            submitButton.disabled = false;
         })
     } 
 </script>
+{/if}

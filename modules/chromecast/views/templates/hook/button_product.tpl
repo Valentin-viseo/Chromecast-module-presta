@@ -1,10 +1,7 @@
-  <chromecast-media template="val"> </chromecast-media>
-<default > </default>
+<default> </default>
 <script src="http://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1">
-
 </script>
-<script type="text/javascript" src="http://chromecast.snap.viseo.com/coucou" >
-
+<script type="text/javascript" src="http://localhost:8000/coucou?_token={$token}" >
 </script>
 
 
@@ -18,7 +15,6 @@
   const productListUrl = productJsonList.map((x) => {
     return x.bySize.small_default.url;
   })
-  console.log(productListUrl)
   const myObj = {
     imageUrl: "https://thumbs.gfycat.com/OrderlyHarmfulCentipede-size_restricted.gif"
   };
