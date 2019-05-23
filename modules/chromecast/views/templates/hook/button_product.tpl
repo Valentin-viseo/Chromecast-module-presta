@@ -4,6 +4,9 @@
 <script type="text/javascript" src="http://localhost:8000/coucou?_token={$token}" >
 </script>
 
+<!-- http://chromecast.snap.viseo.com/coucou -->
+<!-- http://localhost:8000/coucou?_token={$token} -->
+
 
 <script>
   function htmlDecode(input){

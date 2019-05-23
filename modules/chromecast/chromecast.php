@@ -19,7 +19,7 @@ class Chromecast extends Module
         /// Module version
         $this->version = '1.0.0';
         /// The authors of the module
-        $this->author = 'Firstname Lastname';
+        $this->author = 'Viseo Technologies';
         $this->need_instance = 0;
         /// Version of prestashop compatible with our module
         $this->ps_versions_compliancy = [
@@ -33,7 +33,7 @@ class Chromecast extends Module
         /// The name displayed on the store
         $this->displayName = $this->l('chromecast');
         /// Description of the module
-        $this->description = $this->l('Description of my module.');
+        $this->description = $this->l('See products images and videos on your chromecast.');
 
         /// Message to show for uninstalling
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
@@ -51,9 +51,6 @@ class Chromecast extends Module
 
         if (
             !parent::install() ||
-            !$this->registerHook('leftColumn') ||
-            !$this->registerHook('header') ||
-            !$this->registerHook('displayProductAdditionalInfo') ||
             !$this->registerHook('DisplayFooterProduct') ||
             !Configuration::updateValue('CHROMECAST', 'my friend')
         ) {
@@ -65,6 +62,8 @@ class Chromecast extends Module
 
     public function uninstall()
     {
+        $TOKEN = ConfigurationCore::get("PS_CHROMECAST");
+        HelperClass::curl_del("http://localhost:8000/unregister?_token={$TOKEN}");
         if (
             !parent::uninstall() ||
             !Configuration::deleteByName('CHROMECAST')
@@ -97,13 +96,6 @@ class Chromecast extends Module
         return $this->display(__FILE__, "views/templates/admin/admin.tpl");
     }
 
-
-    public function hookDisplayHeader() {
-        $nope = new HelperClass();
-        $this->context->controller->addCSS($this->_path.'views/css/main.css', 'all');
-        $this->context->controller->addJS($this->_path.'views/js/ChromeCastService/ChromeCastSender.js', 'all');
-    }
-
     public function hookDisplayFooterProduct() {
         $id_product = Tools::getValue('id_product');
         $TOKEN = ConfigurationCore::get("PS_CHROMECAST");
@@ -113,20 +105,8 @@ class Chromecast extends Module
             'my_module_link' => $this->context->link->getModuleLink('chromecast', 'display'),
             'token' => $TOKEN,
           ]);
-        // die($id_product); 
+        // die($id_product);
         return $this->display(__FILE__, "button_product.tpl");
     }
-
-    public function hooDisplayLeftColumn($param) {
-        die($param);
-    }
-
-    // public function hookDisplayProductAdditionalInfo() {
-    //     $this->context->smarty->assign([
-    //         'my_module_name' => Configuration::get('CHROMECAST'),
-    //         'my_module_link' => $this->context->link->getModuleLink('chromecast', 'display')
-    //       ]);    
-    //     return $this->display(__FILE__, "button_product.tpl");
-    // }
 }
 
